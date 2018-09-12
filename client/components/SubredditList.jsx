@@ -8,10 +8,10 @@ const Subreddit = ({subreddits, weather}) => (
     {/* {console.log(subreddits)}
     {console.log(weather)} */}
     
-    <h1>Weather for: {weather[0].length > 0 && weather[0].city.name  }
-     will be </h1>
+    <h1>Weather for: {weather} will be </h1>
     {subreddits.map((post, i) =>
       <Post
+      link={post.url}
         key={i}
         title={post.title}
         date={post.created}

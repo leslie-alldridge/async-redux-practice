@@ -9,9 +9,11 @@ class LoadSubreddit extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      search: 'newzealand'
+      search: 'newzealand',
+      filter: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   handleChange (e) {
@@ -21,20 +23,53 @@ class LoadSubreddit extends React.Component {
     })
   }
 
+
+  handleSearch (e) {
+    console.log(this.state);
+    this.setState({
+      filter: e.target.value
+    })
+  }
+
  render(){
    return (
     <div>
+     
     <button onClick={() => {
       this.props.dispatch(fetchWeather())
       this.props.dispatch(fetchPosts(this.state.search))}
-    
     }>
       Fetch Posts
     </button>
     <form>
       <input type="text" onChange={this.handleChange} placeholder="find another subreddit"></input>
     </form>
+
+    <button onClick={() => {
+      this.props.dispatch(fetchPosts(this.state.search, 'date'))}
+    }>
+      Sort by date / title
+    </button>
+    <button onClick={() => {
+      this.props.dispatch(fetchPosts(this.state.search, 'date', 'descending'))}
+    }>
+      descending
+    </button>
+
+
+
+    <form>
+      <input type="text" onChange={this.handleSearch} placeholder="filter posts"></input>
+    </form>
+    <button onClick={() => {
+      this.props.dispatch(fetchPosts(this.state.search, 'date', 'descending', this.state.filter))}
+    }>
+      Filter Posts
+    </button>
     </div>
+
+
+
    )
  }
 }

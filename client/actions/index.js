@@ -18,10 +18,13 @@ export const requestPosts = () => {
   }
 }
 
-export const receivePosts = (posts) => {
+export const receivePosts = (posts, date, descending, filter) => {
   return {
     type: RECEIVE_POSTS,
-    posts: posts.map(post => post.data)
+    posts: posts.map(post => post.data),
+    date: date,
+    descending: descending,
+    filter: filter
   }
 }
 
@@ -41,19 +44,22 @@ export const getWeather = () => {
 export const receiveWeather = (body) => {
   return {
     type: RECEIVE_WEATHER,
-    city: body
+    city: body.city.name
   }
 }
 
-export function fetchPosts (subreddit) {
+
+
+export function fetchPosts (subreddit, date, ascending, filter) {
   return (dispatch) => {
     dispatch(requestPosts())
     return request
       .get(`/api/v1/reddit/subreddit/${subreddit}`)
       .then(res => {
         console.log(res);
+        console.log(filter);
         
-        dispatch(receivePosts(res.body))
+        dispatch(receivePosts(res.body, date, ascending, filter))
       })
       .catch(err => {
         dispatch(showError(err.message))

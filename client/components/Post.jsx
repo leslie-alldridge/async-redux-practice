@@ -19,7 +19,7 @@ class Post extends React.Component {
 render(){
   return (
     <div>
-    <div>{this.props.title} <p>Date: {this.props.date}</p></div>
+    <div><a href={this.props.link} target="_blank">{this.props.title}</a> <p>Date: {this.props.date}</p></div>
     <p>{this.props.selftext}</p>
     <div dangerouslySetInnerHTML={{ __html: this.htmlDecode(this.state.embed) }} />
     </div>
